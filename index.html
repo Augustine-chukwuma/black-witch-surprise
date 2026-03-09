@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Target Scanner</title>
+
+<style>
+
+body{
+background:black;
+color:#00ff9d;
+font-family:monospace;
+text-align:center;
+overflow-x:hidden;
+}
+
+input{
+padding:10px;
+font-size:18px;
+margin-top:20px;
+}
+
+button{
+padding:12px 20px;
+font-size:18px;
+margin-top:20px;
+cursor:pointer;
+background:#00ff9d;
+border:none;
+border-radius:6px;
+}
+
+#loading{
+display:none;
+margin-top:200px;
+font-size:26px;
+}
+
+#main{
+display:none;
+}
+
+#movingText{
+position:absolute;
+font-size:30px;
+color:hotpink;
+font-family:Arial;
+}
+
+.photo{
+display:none;
+margin-top:40px;
+}
+
+img{
+width:300px;
+border-radius:12px;
+box-shadow:0px 0px 20px hotpink;
+}
+
+.caption{
+color:yellow;
+font-size:20px;
+}
+
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-800px);}
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>TARGET IDENTIFICATION SYSTEM</h1>
+
+<div id="start">
+
+Enter Target Name:<br>
+
+<input id="nameInput" placeholder="Type name here">
+
+<br>
+
+<button onclick="startScan()">Start Scan</button>
+
+</div>
+
+<div id="loading">
+
+<span id="scanText"></span>
+<br><br>
+<span id="progress"></span>
+
+</div>
+
+<div id="main">
+
+<div id="movingText"></div>
+
+<button onclick="startReveal()">
+➡ Click here to see your true nature 🥰
+</button>
+
+<div id="analysis"></div>
+
+<div id="gallery">
+
+<div class="photo" id="p1">
+<img src="photo1.jpg">
+<p class="caption">When the witch is planning trouble 🧙‍♀️</p>
+</div>
+
+<div class="photo" id="p2">
+<img src="photo2.jpg">
+<p class="caption">Evidence of goat DNA 🐐</p>
+</div>
+
+<div class="photo" id="p3">
+<img src="photo3.jpg">
+<p class="caption">Certified chaos creator 😌</p>
+</div>
+
+<div class="photo" id="p4">
+<img src="photo4.jpg">
+<p class="caption">Still pretending to be innocent</p>
+</div>
+
+<div class="photo" id="p5">
+<img src="photo5.jpg">
+<p class="caption">My favorite troublemaker ❤️</p>
+</div>
+
+<div class="photo" id="p6">
+<img src="photo6.jpg">
+<p class="caption">Final verdict: 100% cute witch 😈</p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let targetName=""
+
+/* Start scan */
+
+function startScan(){
+
+targetName=document.getElementById("nameInput").value
+
+if(targetName===""){
+alert("Enter target name first")
+return
+}
+
+document.getElementById("start").style.display="none"
+document.getElementById("loading").style.display="block"
+
+document.getElementById("scanText").innerHTML="Scanning "+targetName+"..."
+
+let percent=0
+
+let loader=setInterval(function(){
+
+percent++
+
+document.getElementById("progress").innerHTML=
+"Analyzing personality... "+percent+"%"
+
+if(percent>=100){
+
+clearInterval(loader)
+
+document.getElementById("loading").style.display="none"
+document.getElementById("main").style.display="block"
+
+document.getElementById("movingText").innerHTML=
+"Hi "+targetName+" 😈<br>Just a reminder...<br>You're still my favorite goat 🐐"
+
+}
+
+},40)
+
+}
+
+/* Moving text */
+
+let text=document.getElementById("movingText")
+
+let x=200
+let y=150
+let dx=3
+let dy=3
+
+function moveText(){
+
+let t=document.getElementById("movingText")
+
+x+=dx
+y+=dy
+
+if(x>window.innerWidth-300||x<0){dx=-dx}
+if(y>window.innerHeight-200||y<0){dy=-dy}
+
+t.style.left=x+"px"
+t.style.top=y+"px"
+
+}
+
+setInterval(moveText,20)
+
+/* Photo reveal */
+
+function startReveal(){
+
+document.getElementById("analysis").innerHTML=
+"<br>Analyzing true nature...<br>⚠ Mischief detected<br>⚠ Witch activity detected<br>⚠ Goat DNA confirmed 🐐"
+
+let photos=["p1","p2","p3","p4","p5","p6"]
+
+photos.forEach((id,index)=>{
+
+setTimeout(function(){
+
+document.getElementById(id).style.display="block"
+
+},3000*(index+1))
+
+})
+
+createHearts()
+
+}
+
+/* Hearts */
+
+function createHearts(){
+
+for(let i=0;i<40;i++){
+
+let heart=document.createElement("div")
+heart.className="heart"
+heart.innerHTML="❤️"
+
+heart.style.left=Math.random()*window.innerWidth+"px"
+heart.style.top=window.innerHeight+"px"
+
+document.body.appendChild(heart)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
